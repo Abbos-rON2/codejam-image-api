@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <img src="images/nav-icon.png">
+        <h1>CodeJam Image Api</h1>
+        <img src="images/menu-icon.png">
+    </header>
+    <main>
+        <div class="menu">
+            <div class="setting menu-wrap">
+                <div class="menu-item"><img src="images/menu-1.png"> Fill bucket</div>
+                <div class="menu-item"><img src="images/menu-2.png"> Choose color</div>
+                <div class="menu-item active"><img src="images/menu-3.png"> Pencil</div>
+                <div class="menu-item" id="clear"><img src="images/menu-4.png"> Clear</div>
+            </div>
+            <div class="colors menu-wrap">
+                <div class="menu-item"><input type="color" class="color color-current"> Current color</div>
+                <div class="menu-item"><input type="color" class="color color-prev"> Prev color</div>
+                <div class="menu-item"><input type="color" class="color color-red" value="#ff0000"> red</div>
+                <div class="menu-item"><input type="color" class="color color-blue" value="#0000ff"> blue</div>
+            </div>
+        </div>
+        <canvas id="canvas" width="512px" height="512px"></canvas>
+        <div class="menu">
+            <div class="menu-wrap search">
+                <input type="text" id="search" placeholder="City Name">
+                <input type="submit" id="search_submit" value="load">
+            </div>
+            <div class="menu-wrap size-switcher">
+                <div class="menu-item">128x128</div>
+                <div class="menu-item">256x256</div>
+                <div class="menu-item">512x512</div>
+            </div>
+            <div class="menu-wrap">
+                <div class="menu-item check">
+                    <input type="checkbox" id="myCheck">
+                    <label for="myCheck">GrayScale</label>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
