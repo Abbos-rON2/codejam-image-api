@@ -2,13 +2,21 @@ const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 const searchSumbit = document.querySelector('#search_submit');
 const searchInput = document.querySelector('#search');
+const myCheck = document.querySelector('#myCheck')
 let state = {
     tool: 'Pencil',
     size: 4,
     color: '#000000',
     isMouseDown: false,
-    grayScale: true,
+    grayScale: false,
 }
+myCheck.addEventListener('change', () => {
+    if (myCheck.checked) {
+        state.grayScale = true;
+    } else {
+        state.grayScale = false;
+    }
+})
 canvas.addEventListener('mousedown', (e) => {
     state.isMouseDown = true;
     draw(e);
@@ -27,10 +35,13 @@ window.addEventListener('load', () => {
     //Drawing image from localStorage on canvas
     const canvasImage = new Image();
     canvasImage.src = localStorage.getItem('canvasImage');
+    if (state.grayScale === true) {
+        ctx.globalCompositeOperation = 'luminosity';
+    }else{
+        ctx.globalCompositeOperation = 'source-over';
+    }
     canvasImage.onload = () => {
-        if (state.grayScale === true) {
-            ctx.globalCompositeOperation = 'luminosity';
-        }
+
         ctx.drawImage(canvasImage, 0, (512 - canvasImage.height) / 2);
     }
 
@@ -127,8 +138,8 @@ function getBase64Image(img) {
     canv.height = img.height;
 
     canv.getContext('2d').drawImage(img, 0, 0);
-
-    const dataURL = canvas.toDataURL('image/png');
+    canv.crossOrigin = 'Anonymous';
+    const dataURL = canv.toDataURL();
 
     return dataURL;
 }
@@ -140,11 +151,13 @@ function getLinkToImage(cityName) {
             const imgLink = data.results[0].urls.small.replace('w=400', 'w=512');
             const img = new Image();
             img.src = imgLink;
-            img.crossOrigin = 'anonymous';
+            img.crossOrigin = 'Anonymous';
+            if (state.grayScale === true) {
+                ctx.globalCompositeOperation = 'luminosity';
+            }else{
+                ctx.globalCompositeOperation = 'source-over';
+            }
             img.onload = () => {
-                if (state.grayScale === true) {
-                    ctx.globalCompositeOperation = 'luminosity';
-                }
                 ctx.drawImage(img, 0, (512 - img.height) / 2);
                 localStorage.setItem('canvasImage', getBase64Image(img));
             };
